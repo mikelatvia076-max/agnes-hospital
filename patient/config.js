@@ -1,1 +1,1 @@
-const API_BASE_URL = "https://your-backend-url.vercel.app"; // Update with your actual backend URL if needed
+const API_URL = "";

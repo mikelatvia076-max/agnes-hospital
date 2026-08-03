@@ -7,7 +7,7 @@
 const ACTIVE_API_URL = typeof API_URL !== 'undefined' ? API_URL : (
     window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:"
         ? "http://localhost:5000" 
-        : "https://memorial-hospital-2.onrender.com"
+        : ""
 );
 
 // SAFE ELEMENT RETRIEVAL HELPER
@@ -109,7 +109,7 @@ safeAddListener("registerForm", "submit", async function(e) {
             if (regMessageEl) regMessageEl.innerHTML = data.message || "Registration failed.";
         }
     } catch (error) {
-        if (regMessageEl) regMessageEl.innerHTML = "Server connection error. Please wake up or check server.";
+        if (regMessageEl) regMessageEl.innerHTML = "Server connection error. Please check server.";
         console.error("Register catch error:", error);
     }
 });
@@ -168,7 +168,7 @@ safeAddListener("loginForm", "submit", async function(e) {
             if (loginMessageEl) loginMessageEl.innerHTML = data.message || "Invalid login details.";
         }
     } catch (error) {
-        if (loginMessageEl) loginMessageEl.innerHTML = "Server connection error. Please wake up or check server.";
+        if (loginMessageEl) loginMessageEl.innerHTML = "Server connection error. Please check server.";
         console.error("Login catch error:", error);
     }
 });
