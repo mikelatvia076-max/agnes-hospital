@@ -1,24 +1,14 @@
 // =====================================
 // AGNES MEMORIAL MEDICAL HOSPITAL
-<<<<<<< HEAD
 // LOGIN + REGISTER SYSTEM (FINAL PRODUCTION)
 // =====================================
 
 // DYNAMIC API URL CONFIGURATION (Pulls from config.js or auto-detects)
 const ACTIVE_API_URL = typeof API_URL !== 'undefined' ? API_URL : (
-    window.location.hostname === "localhost" 
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:"
         ? "http://localhost:5000" 
         : "https://memorial-hospital-2.onrender.com"
 );
-=======
-// LOGIN + REGISTER SYSTEM (LOCAL & PROD DUAL-MODE)
-// =====================================
-
-// DYNAMIC API URL: Forces localhost when testing on PC via file:// or localhost
-const ACTIVE_API_URL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "file:")
-    ? "http://localhost:5000"
-    : "https://memorial-hospital-2.onrender.com";
->>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
 
 // SAFE ELEMENT RETRIEVAL HELPER
 function getEl(id) {
@@ -70,23 +60,15 @@ if (showLoginBtn) {
 safeAddListener("registerForm", "submit", async function(e) {
     e.preventDefault();
 
-<<<<<<< HEAD
     const fullnameEl = getEl("fullname");
     const regUsernameEl = getEl("registerUsername");
     const emailEl = getEl("email");
     const regPasswordEl = getEl("registerPassword");
     const regRoleEl = getEl("registerRole");
-=======
-    const fullnameEl = getEl("fullname") || getEl("registerUsername");
-    const emailEl = getEl("email");
-    const regPasswordEl = getEl("registerPassword");
-    const phoneEl = getEl("phone");
->>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
     const regMessageEl = getEl("registerMessage");
 
     let user = {
         name: fullnameEl && fullnameEl.value ? fullnameEl.value.trim() : "",
-<<<<<<< HEAD
         username: regUsernameEl && regUsernameEl.value ? regUsernameEl.value.trim() : "",
         email: emailEl && emailEl.value ? emailEl.value.trim() : "",
         password: regPasswordEl && regPasswordEl.value ? regPasswordEl.value : "",
@@ -95,15 +77,6 @@ safeAddListener("registerForm", "submit", async function(e) {
 
     if (!user.name || !user.username || !user.email || !user.password || !user.role) {
         if (regMessageEl) regMessageEl.innerHTML = "Please fill in all registration fields and select a role.";
-=======
-        email: emailEl && emailEl.value ? emailEl.value.trim() : "",
-        password: regPasswordEl && regPasswordEl.value ? regPasswordEl.value : "",
-        phone: phoneEl && phoneEl.value ? phoneEl.value.trim() : ""
-    };
-
-    if (!user.name || !user.email || !user.password) {
-        if (regMessageEl) regMessageEl.innerHTML = "Please fill in all required registration fields.";
->>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
         return;
     }
 
@@ -136,11 +109,7 @@ safeAddListener("registerForm", "submit", async function(e) {
             if (regMessageEl) regMessageEl.innerHTML = data.message || "Registration failed.";
         }
     } catch (error) {
-<<<<<<< HEAD
         if (regMessageEl) regMessageEl.innerHTML = "Server connection error. Please wake up or check server.";
-=======
-        if (regMessageEl) regMessageEl.innerHTML = "Server connection error. Please check if local server is running.";
->>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
         console.error("Register catch error:", error);
     }
 });
@@ -149,7 +118,6 @@ safeAddListener("registerForm", "submit", async function(e) {
 safeAddListener("loginForm", "submit", async function(e) {
     e.preventDefault();
 
-<<<<<<< HEAD
     const usernameEl = getEl("username");
     const passwordEl = getEl("password");
     const roleEl = getEl("role");
@@ -163,19 +131,6 @@ safeAddListener("loginForm", "submit", async function(e) {
 
     if (!credentials.username || !credentials.password || !credentials.role) {
         if (loginMessageEl) loginMessageEl.innerHTML = "Please fill in all fields and select a role.";
-=======
-    const emailEl = getEl("username") || getEl("email");
-    const passwordEl = getEl("password");
-    const loginMessageEl = getEl("loginMessage");
-
-    let credentials = {
-        email: emailEl && emailEl.value ? emailEl.value.trim() : "",
-        password: passwordEl && passwordEl.value ? passwordEl.value : ""
-    };
-
-    if (!credentials.email || !credentials.password) {
-        if (loginMessageEl) loginMessageEl.innerHTML = "Please enter your email and password.";
->>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
         return;
     }
 
@@ -196,11 +151,7 @@ safeAddListener("loginForm", "submit", async function(e) {
 
         if (response.ok) {
             try {
-<<<<<<< HEAD
                 sessionStorage.setItem("currentUser", JSON.stringify(data.user || credentials));
-=======
-                sessionStorage.setItem("currentUser", JSON.stringify(data.patient || credentials));
->>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
                 if (data.token) {
                     sessionStorage.setItem("token", data.token);
                 }
@@ -217,11 +168,7 @@ safeAddListener("loginForm", "submit", async function(e) {
             if (loginMessageEl) loginMessageEl.innerHTML = data.message || "Invalid login details.";
         }
     } catch (error) {
-<<<<<<< HEAD
         if (loginMessageEl) loginMessageEl.innerHTML = "Server connection error. Please wake up or check server.";
-=======
-        if (loginMessageEl) loginMessageEl.innerHTML = "Server connection error. Please check if local server is running.";
->>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
         console.error("Login catch error:", error);
     }
 });

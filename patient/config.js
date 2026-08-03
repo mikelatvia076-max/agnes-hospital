@@ -1,4 +1,1 @@
-// API Configuration
-const API_BASE_URL = window.location.hostname === "localhost" 
-    ? "http://localhost:5000" 
-    : ""; // Leave empty or put your live backend URL here
+const API_BASE_URL = "https://your-backend-url.vercel.app"; // Update with your actual backend URL if needed
