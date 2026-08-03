@@ -1,1 +1,0 @@
-{ "rewrites": [ { "source": "/(.*)", "destination": "/hosi/dashboard.html" } ] }
