@@ -79,10 +79,13 @@ app.get("/portals", (req, res) => {
 // ================================
 
 app.post("/register", async (req, res) => {
-    const { patient_id, name, email, phone, password } = req.body;
+    const { patient_id, name, username, email, phone, password, role } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ message: "Missing required fields (Email and Password are required)" });
+    const userEmail = email || (username ? `${username}@agneshospital.local` : null);
+    const userName = name || username || "Valued User";
+
+    if (!userEmail || !password) {
+        return res.status(400).json({ message: "Missing required fields (Email/Username and Password are required)" });
     }
 
     try {
@@ -94,7 +97,7 @@ app.post("/register", async (req, res) => {
             VALUES (?, ?, ?, ?, ?)
         `;
 
-        db.query(sql, [assignedId, name || "Valued Patient", email, phone || "", hashedPassword], (err, result) => {
+        db.query(sql, [assignedId, userName, userEmail, phone || "", hashedPassword], (err, result) => {
             if (err) {
                 if (err.code === "ER_DUP_ENTRY") {
                     return res.status(400).json({ message: "Email or User ID already registered" });
@@ -115,13 +118,16 @@ app.post("/register", async (req, res) => {
 // ================================
 
 app.post("/login", (req, res) => {
-    const { email, password } = req.body;
+    const { email, username, password } = req.body;
+    const searchIdentifier = email || username;
 
-    if (!email || !password) {
-        return res.status(400).json({ message: "Email and password required" });
+    if (!searchIdentifier || !password) {
+        return res.status(400).json({ message: "Email/Username and password required" });
     }
 
-    db.query("SELECT * FROM users WHERE email = ?", [email], (err, result) => {
+    const queryField = email ? "email" : "email"; // Can also check username if stored separately, fallback handles email match
+
+    db.query("SELECT * FROM users WHERE email = ? OR name = ?", [searchIdentifier, searchIdentifier], (err, result) => {
         if (err) {
             console.error("Login Query Error (users):", err);
             return res.status(500).json({ message: "Database error during login check" });
@@ -132,14 +138,14 @@ app.post("/login", (req, res) => {
         }
 
         // Fallback check in patients table if not found in users
-        db.query("SELECT * FROM patients WHERE email = ?", [email], (pErr, pResult) => {
+        db.query("SELECT * FROM patients WHERE email = ? OR name = ?", [searchIdentifier, searchIdentifier], (pErr, pResult) => {
             if (pErr) {
                 console.error("Login Query Error (patients):", pErr);
                 return res.status(500).json({ message: "Database error during login check" });
             }
 
             if (!pResult || pResult.length === 0) {
-                return res.status(400).json({ message: "Invalid email or password" });
+                return res.status(400).json({ message: "Invalid login details" });
             }
 
             return processUserLogin(pResult[0], password, res);
@@ -149,7 +155,6 @@ app.post("/login", (req, res) => {
 
 async function processUserLogin(user, password, res) {
     try {
-        // If the user record lacks a password field (e.g. imported patient record without web auth)
         if (!user.password) {
             return res.status(400).json({ message: "No web password configured for this account. Please register first." });
         }
@@ -157,7 +162,7 @@ async function processUserLogin(user, password, res) {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.status(400).json({ message: "Invalid email or password" });
+            return res.status(400).json({ message: "Invalid login details" });
         }
 
         const token = jwt.sign(
@@ -172,6 +177,7 @@ async function processUserLogin(user, password, res) {
         res.json({
             message: "Login successful",
             token,
+            user: safeUser,
             patient: safeUser
         });
     } catch (bcryptErr) {
@@ -649,7 +655,7 @@ app.put("/appointments/:id/status", (req, res) => {
 });
 
 // ================================
-// START SERVER (RENDER COMPLIANT)
+// START SERVER
 // ================================
 
 const PORT = process.env.PORT || 5000;
@@ -658,5 +664,4 @@ app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on port ${PORT}`);
 });
 
-// Export app for serverless platforms like Vercel (optional, but keeps local execution working fine)
 module.exports = app;
