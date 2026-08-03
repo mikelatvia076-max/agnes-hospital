@@ -1,0 +1,163 @@
+/* =======================================
+   AGNES MEMORIAL MEDICAL HOSPITAL - STYLES
+   ======================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #111;
+}
+
+#loginpage {
+    position: relative;
+    padding: 40px 15px;
+    border: 3px solid #00f7ff;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: glow 2s infinite alternate;
+
+    /* Light overlay so your text is still easy to read over the image */
+    background: linear-gradient(rgba(17, 17, 17, 0.25), rgba(17, 17, 17, 0.25)), 
+     url("agneses.jpeg");
+    
+    /* FIX: 'contain' ensures the full image is visible from start to end */
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain; 
+}
+.container{
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-wrapper {
+    margin: 10px 0;
+}
+
+#kasa {
+    width: 100px;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+}
+
+.info-block p {
+    font-size: 1.1rem;
+    color: #eee;
+    margin-top: 5px;
+    text-shadow: 0 0 5px rgba(0,0,0,0.8); /* Added text shadow for better contrast against image */
+}
+
+.info-block h3, .info-block h2 {
+    font-size: 1.3rem;
+    color: #00f7ff;
+    text-shadow: 0 0 5px rgba(0,0,0,0.8);
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 20px;
+}
+
+.portal-button {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    /* Slightly darker shadow to match the new background opacity */
+    background: linear-gradient(90deg, #ff0000, #ff9900, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+    background-size: 600%;
+    animation: rainbow 6s linear infinite;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portal-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
+}
+
+.shine-title {
+    font-size: clamp(1.8rem, 6vw, 3rem); /* Slightly larger title */
+    font-weight: 900;
+    text-align: center;
+    background: linear-gradient(
+        90deg,
+        #00f5ff,
+        #00ff88,
+        #ffff00,
+        #ff00ff,
+        #00f5ff
+    );
+    background-size: 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+    /* Stronger text shadow to ensure text pops against the image */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.5);
+    line-height: 1.2;
+    margin-bottom: 10px;
+}
+
+@keyframes glow {
+    0% {
+        border-color: #00f7ff;
+        box-shadow: 0 0 5px #00f7ff;
+    }
+    50% {
+        border-color: #ff00ff;
+        box-shadow: 0 0 10px #ff00ff;
+    }
+    100% {
+        border-color: #00ff66;
+        box-shadow: 0 0 10px #00ff66;
+    }
+}
+
+@keyframes rainbow {
+    0% {
+        background-position: 0%;
+    }
+    100% {
+        background-position: 600%;
+    }
+}
+
+@keyframes shine {
+    0% {
+        background-position: 0%;
+    }
+    50% {
+        background-position: 100%;
+    }
+    100% {
+        background-position: 0%;
+    }
+}

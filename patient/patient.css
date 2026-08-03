@@ -1,0 +1,182 @@
+<<<<<<< HEAD
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+
+}
+
+
+
+body{
+
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#e0f2fe;
+
+}
+
+
+
+.patient-card{
+
+background:white;
+width:380px;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+text-align:center;
+
+}
+
+
+
+.patient-card h1{
+
+color:#075985;
+margin-bottom:20px;
+
+}
+
+
+
+input{
+
+width:100%;
+padding:12px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+
+}
+
+
+
+button{
+
+width:100%;
+padding:12px;
+background:#075985;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+background:#0284c7;
+
+}
+
+
+
+a{
+
+color:#075985;
+
+=======
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e0f2fe;
+  padding: 15px;
+}
+
+.patient-card {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.patient-card h1 {
+  color: #075985;
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+
+input {
+  width: 100%;
+  padding: 16px;
+  margin: 14px 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1.1rem;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  background: #075985;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #0284c7;
+}
+
+button a {
+  color: white;
+  margin-top: 0;
+}
+
+p {
+  margin-top: 25px;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+a {
+  color: #075985;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 480px) {
+  .patient-card {
+    padding: 25px 20px;
+    border-radius: 12px;
+  }
+
+  .patient-card h1 {
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+  }
+
+  input {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 1.1rem;
+  }
+>>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
+}
