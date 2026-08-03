@@ -125,9 +125,8 @@ app.post("/login", (req, res) => {
         return res.status(400).json({ message: "Email/Username and password required" });
     }
 
-    const queryField = email ? "email" : "email"; // Can also check username if stored separately, fallback handles email match
-
-    db.query("SELECT * FROM users WHERE email = ? OR name = ?", [searchIdentifier, searchIdentifier], (err, result) => {
+    // Safely query users table matching email or patient_id
+    db.query("SELECT * FROM users WHERE email = ? OR patient_id = ?", [searchIdentifier, searchIdentifier], (err, result) => {
         if (err) {
             console.error("Login Query Error (users):", err);
             return res.status(500).json({ message: "Database error during login check" });
@@ -137,8 +136,8 @@ app.post("/login", (req, res) => {
             return processUserLogin(result[0], password, res);
         }
 
-        // Fallback check in patients table if not found in users
-        db.query("SELECT * FROM patients WHERE email = ? OR name = ?", [searchIdentifier, searchIdentifier], (pErr, pResult) => {
+        // Fallback check in patients table
+        db.query("SELECT * FROM patients WHERE email = ? OR patient_id = ?", [searchIdentifier, searchIdentifier], (pErr, pResult) => {
             if (pErr) {
                 console.error("Login Query Error (patients):", pErr);
                 return res.status(500).json({ message: "Database error during login check" });
