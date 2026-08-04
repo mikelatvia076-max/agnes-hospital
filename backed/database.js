@@ -4,23 +4,30 @@
 
 const mysql = require("mysql2");
 
-const db = mysql.createConnection({
+// Using createPool instead of createConnection prevents ETIMEDOUT errors
+// and automatically handles dropped serverless database connections.
+const db = mysql.createPool({
     host: process.env.DB_HOST || "localhost",
     user: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "",
-    // Change "defaultdb" to your actual database name:
     database: process.env.DB_NAME || "agnes_hospital", 
     port: process.env.DB_PORT || 3306,
     dateStrings: true,
-    ssl: false 
+    ssl: false,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    connectTimeout: 30000
 });
 
-db.connect((err) => {
+// Test the pool connection on startup
+db.getConnection((err, connection) => {
     if (err) {
         console.log("Database connection failed");
         console.log(err);
     } else {
-        console.log("Database connected successfully");
+        console.log("Database connected successfully via pool");
+        connection.release();
     }
 });
 
