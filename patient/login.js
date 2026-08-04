@@ -13,7 +13,7 @@ async function loginUser() {
     }
 
     try {
-        let response = await fetch('/login', {
+        let response = await fetch(CONFIG.getEndpoint('/login'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -28,7 +28,6 @@ async function loginUser() {
             return;
         }
 
-        // Save patient information if returned by the backend
         if (data.patient) {
             localStorage.setItem("loggedPatient", JSON.stringify(data.patient));
             localStorage.setItem("currentPatient", JSON.stringify(data.patient));
@@ -60,7 +59,7 @@ if (loginForm) {
         }
 
         try {
-            let response = await fetch('/login', {
+            let response = await fetch(CONFIG.getEndpoint('/login'), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -167,7 +166,7 @@ async function backToLoginPage() {
     }
 
     try {
-        let response = await fetch('/register', {
+        let response = await fetch(CONFIG.getEndpoint('/register'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
