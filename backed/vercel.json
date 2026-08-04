@@ -1,18 +1,9 @@
 {
   "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "backed/server.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["sue/**", "hosi/**", "patient/**"]
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/backed/server.js"
+      "source": "/(.*)",
+      "destination": "/backed/server.js"
     }
   ]
 }
