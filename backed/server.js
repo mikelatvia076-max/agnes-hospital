@@ -125,7 +125,6 @@ app.post("/login", (req, res) => {
         return res.status(400).json({ message: "Email/Username and password required" });
     }
 
-    // Safely query users table matching email or patient_id
     db.query("SELECT * FROM users WHERE email = ? OR patient_id = ?", [searchIdentifier, searchIdentifier], (err, result) => {
         if (err) {
             console.error("Login Query Error (users):", err);
@@ -136,7 +135,6 @@ app.post("/login", (req, res) => {
             return processUserLogin(result[0], password, res);
         }
 
-        // Fallback check in patients table
         db.query("SELECT * FROM patients WHERE email = ? OR patient_id = ?", [searchIdentifier, searchIdentifier], (pErr, pResult) => {
             if (pErr) {
                 console.error("Login Query Error (patients):", pErr);
@@ -654,13 +652,16 @@ app.put("/appointments/:id/status", (req, res) => {
 });
 
 // ================================
-// START SERVER
+// START SERVER (Safe for Vercel & Local)
 // ================================
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+    app.listen(PORT, "0.0.0.0", () => {
+        console.log(`Server running locally on port ${PORT}`);
+    });
+}
 
+// Required for Vercel Serverless Functions routing
 module.exports = app;
