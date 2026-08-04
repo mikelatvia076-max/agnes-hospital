@@ -1,7 +1,15 @@
-<<<<<<< HEAD
-const API_URL = window.location.hostname === "localhost" 
-=======
-const API_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" 
->>>>>>> 56f5f8a81e106236bdd2771da275a518ba4d6061
-    ? "http://localhost:5000" 
-    : "https://memorial-hospital-2.onrender.com";
+const CONFIG = {
+    API_URL: "https://agnes-hospital.vercel.app",
+    API_BASE_URL: "https://agnes-hospital.vercel.app",
+    getEndpoint: function (path) {
+        const cleanPath = path.startsWith('/') ? path : '/' + path;
+        return this.API_URL + cleanPath;
+    }
+};
+
+window.CONFIG = CONFIG;
+window.API_URL = CONFIG.API_URL;
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = CONFIG;
+}
