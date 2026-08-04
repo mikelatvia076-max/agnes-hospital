@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "backed/server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["sue/**", "hosi/**", "patient/**"]
+      }
     }
   ],
   "routes": [
