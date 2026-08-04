@@ -4,8 +4,6 @@
 
 const mysql = require("mysql2");
 
-// Using createPool instead of createConnection prevents ETIMEDOUT errors
-// and automatically handles dropped serverless database connections.
 const db = mysql.createPool({
     host: process.env.DB_HOST || "localhost",
     user: process.env.DB_USER || "root",
@@ -20,7 +18,6 @@ const db = mysql.createPool({
     connectTimeout: 30000
 });
 
-// Test the pool connection on startup
 db.getConnection((err, connection) => {
     if (err) {
         console.log("Database connection failed");
